@@ -1,17 +1,18 @@
 * {
 	box-sizing: border-box;
-	padding: 10;
-	margin: 10;
+	padding: 0px;
+	margin: 0px;
 }
 
 html, body {
     position: relative;
+    font-family:"AUTHENTIC"
 
 }
 
 @font-face {
 	font-family:"AUTHENTIC";
-	src: url("Assets/TMT-AUTHENTICRemixedVF.ttf");
+	src: url("Assets/authentic-sans-90.otf");
 }
 
 
@@ -124,7 +125,11 @@ html, body {
 }
 .portfolio-item iframe {
     display: block;
-}
+    width: 100%;
+    height: unset;
+    aspect-ratio: 16/9;
+    }
+
 .portfolio-item h3 {
     font-size: 24px;
     font-family: "AUTHENTIC";
