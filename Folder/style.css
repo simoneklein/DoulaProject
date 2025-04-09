@@ -1,0 +1,167 @@
+* {
+	box-sizing: border-box;
+	padding: 10;
+	margin: 10;
+}
+
+html, body {
+    position: relative;
+
+}
+
+@font-face {
+	font-family: "AUTHENTIC";
+	src: url("assets/TMT-AUTHENTICRemixedVF.ttf");
+}
+
+
+.header-container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    width: 100%; 
+    padding: 20px; 
+  }
+  
+  h1 {
+    font-size: 40px;
+    font-family: "AUTHENTIC";
+    margin: 0;
+  }
+  
+  .small-text {
+    font-size: 0.5em;
+    font-family: "AUTHENTIC";
+    margin-left: 10px;
+  }
+  
+  h2.right-title {
+    font-size: 30px; 
+    font-family: "AUTHENTIC";
+    margin: 0; 
+    padding-left: 10px; 
+  }
+
+
+  nav {
+    padding: 10px 0;
+    text-align: left; 
+    margin-left: 20px; 
+}
+
+.nav-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-start; 
+}
+
+.nav-item {
+    position: relative;
+    margin: 0 20px;
+}
+
+.nav-link {
+    color: black; 
+    text-decoration: none;
+    font-size: 18px;
+    font-family: "AUTHENTIC";
+    padding: 10px;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #ffcc00; 
+}
+
+.tooltip {
+    display: none;
+    position: absolute;
+    top: 30px; 
+    left: 50%;
+    transform: translateX(-50%); 
+    background-color: white; 
+    color: black; 
+    padding: 15px;
+    border-radius: 5px;
+    width: 300px;
+    text-align: left;
+    font-size: 14px;
+    font-family: "AUTHENTIC";
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    z-index: 10; 
+}
+
+.nav-item:hover .tooltip {
+    display: block;
+}
+
+.nav-item:hover .tooltip {
+    max-width: 300px;
+    left: 0; 
+    transform: translateX(0); 
+}
+
+.portfolio {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+
+.portfolio-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: rgb(246, 234, 213);
+    text-decoration: none;
+    color: black;
+    padding: 20px;
+    border-radius: 15px; 
+    font-family:"AUTHENTIC";
+}
+.portfolio-item iframe {
+    display: block;
+}
+.portfolio-item h3 {
+    font-size: 24px;
+    font-family: "AUTHENTIC";
+    margin-bottom: 2px;
+}
+.portfolio-item p {
+    font-size: 18px;
+    font-family: "AUTHENTIC";
+    margin-top: 0;
+}
+
+h3 {
+    font-family: "AUTHENTIC"
+}
+
+p {
+    font-family: "AUTHENTIC"
+}
+
+@media (max-width: 1000px) {
+    .portfolio {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media (max-width: 600px) {
+    .portfolio {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+.bottom-right-text {
+    position: absolute; /* Position it at the bottom-right corner of the page */
+    right: 20px; /* Align text to the right of the screen */
+    line-height: 10px;
+    bottom: 0px; /* Align text to the bottom of the screen */
+    font-family: "AUTHENTIC";
+    font-size: 8;
+    color: black; /* Optional: Adjust text color */
+}
