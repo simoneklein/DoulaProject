@@ -10,7 +10,7 @@ html, body {
 }
 
 @font-face {
-	font-family: "AUTHENTIC";
+	font-family:"AUTHENTIC";
 	src: url("Assets/TMT-AUTHENTICRemixedVF.ttf");
 }
 
@@ -157,11 +157,11 @@ p {
 
 
 .bottom-right-text {
-    position: absolute; /* Position it at the bottom-right corner of the page */
-    right: 20px; /* Align text to the right of the screen */
+    position: absolute; 
+    right: 20px; 
     line-height: 10px;
-    bottom: 0px; /* Align text to the bottom of the screen */
+    bottom: 0px; 
     font-family: "AUTHENTIC";
     font-size: 8;
-    color: black; /* Optional: Adjust text color */
+    color: black; 
 }
