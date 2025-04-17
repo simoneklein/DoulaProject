@@ -1,175 +1,256 @@
 * {
     box-sizing: border-box;
-    padding: 0px;
-    margin: 0px;
-}
-
-html, body {
-    position: relative;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html, body {
     font-family: "AUTHENTIC";
-}
-
-@font-face {
+    position: relative;
+    background-color: #1e1e1e; /* dark gray background */
+    color: white;
+  }
+  
+  @font-face {
     font-family: "AUTHENTIC";
     src: url("Assets/authentic-sans-90.otf");
-}
-
-.header-container {
+  }
+  
+  .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
     padding: 20px;
-}
-
-h1 {
+  }
+  
+  h1 {
     font-size: 40px;
-    font-family: "AUTHENTIC";
-    margin: 0;
-}
-
-.small-text {
+    color: white;
+  }
+  
+  .small-text {
     font-size: 0.5em;
-    font-family: "AUTHENTIC";
     margin-left: 10px;
-}
-
-h2.right-title {
-    font-size: 30px;
-    font-family: "AUTHENTIC";
-    margin: 0;
+    color: white;
+  }
+  
+  h2.right-title {
+    font-size: 20px;
     padding-left: 10px;
-}
-
-nav {
+    color: white;
+  }
+  
+  /* Nav */
+  nav {
     padding: 10px 0;
-    text-align: left;
     margin-left: 20px;
-}
-
-.nav-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  }
+  
+  .nav-list {
+    list-style: none;
     display: flex;
-    justify-content: flex-start;
-}
-
-.nav-item {
+  }
+  
+  .nav-item {
     position: relative;
     margin: 0 20px;
-}
-
-.nav-link {
-    color: black;
-    text-decoration: none;
+  }
+  
+  .nav-link {
     font-size: 18px;
-    font-family: "AUTHENTIC";
+    text-decoration: none;
+    color: white;
     padding: 10px;
     transition: color 0.3s ease;
-}
-
-.nav-link:hover {
-    color: #5b4894;
-}
-
-/* Tooltip Styling */
-.tooltip {
+  }
+  
+  .nav-link:hover {
+    color: #c0a4f4;
+  }
+  
+  /* Tooltip */
+  .tooltip {
     display: none;
     position: absolute;
     top: 30px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: white;
-    color: black;
+    background: #2a2a2a; /* darker gray for tooltip background */
+    color: white;
     padding: 15px;
+    width: 400px;
     border-radius: 5px;
-    width: 400px !important; /* Force the width to be 400px */
-    text-align: left;
     font-size: 14px;
-    font-family: "AUTHENTIC";
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 10;
+    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
     max-height: 150px;
     overflow-y: auto;
-}
-
-/* Display the tooltip when hovering over the nav item */
-.nav-item:hover .tooltip {
+    z-index: 10;
+  }
+  
+  .nav-item:hover .tooltip {
     display: block;
     left: 0;
     transform: translateX(0);
-    max-width: 400px !important; /* Force the max width to match the tooltip width */
-}
-
-/* Portfolio Section */
-.portfolio {
+  }
+  
+  /* Grid */
+  .portfolio {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding: 20px;
-}
-
-.portfolio-item {
+  }
+  
+  /* Flex rows for 2-item sections */
+  .portfolio-row-center {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  /* Make flex items same width as grid items */
+  .portfolio-row-center .portfolio-item {
+    flex: 0 1 calc(33.333% - 20px);
+  }
+  
+  /* Portfolio item */
+  .portfolio-item {
+    background: black; /* now black instead of gray */
+    border-radius: 15px;
+    padding: 15px;
+    text-decoration: none;
+    color: white;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    background-color: rgb(246, 234, 213);
-    text-decoration: none;
-    color: black;
-    padding: 15px;
-    border-radius: 15px;
-    font-family: "AUTHENTIC";
-}
-
-.portfolio-item iframe,
-.portfolio-item .youtube-player {
-    display: block;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+    max-width: 100%;
+    position: relative;
+  }
+  
+  .portfolio-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Hover Glow + Zoom Effect */
+  .portfolio-item:hover {
+    transform: translateY(-5px) scale(1.01);
+    background: linear-gradient(145deg, #111111, #222222); /* subtle black gradient */
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.15);
+  }
+  
+  /* Video */
+  .youtube-player {
     width: 100%;
-    aspect-ratio: 16/9;
-}
-
-.portfolio-item h3 {
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 12px;
+    transition: transform 0.4s ease;
+  }
+  
+  .portfolio-item:hover .youtube-player {
+    transform: scale(1.03);
+  }
+  
+  .youtube-player iframe {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: all 0.5s ease;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  
+  .youtube-player iframe.loaded {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  /* Text inside portfolio */
+  .portfolio-item h3 {
     font-size: 24px;
-    font-family: "AUTHENTIC";
-    margin-bottom: 0px;
-}
-
-.portfolio-item p {
+    margin-bottom: 0;
+    color: white;
+  }
+  
+  .portfolio-item p {
     font-size: 18px;
-    font-family: "AUTHENTIC";
-    margin-top: 0px;
-    margin-bottom: 0px;
-}
-
-h3 {
-    font-family: "AUTHENTIC";
-}
-
-p {
-    font-family: "AUTHENTIC";
-}
-
-/* Media Queries for responsive design */
-@media (max-width: 1000px) {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: white;
+  }
+  
+  /* Responsive */
+  @media (max-width: 1000px) {
     .portfolio {
-        grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, 1fr);
     }
-}
-
-@media (max-width: 600px) {
+  
+    .portfolio-row-center {
+      grid-column: 1 / -1;
+    }
+  
+    .portfolio-row-center .portfolio-item {
+      flex: 0 1 calc(50% - 20px);
+    }
+  }
+  
+  @media (max-width: 600px) {
     .portfolio {
-        grid-template-columns: 1fr;
+      grid-template-columns: 1fr;
     }
-}
-
-/* Bottom Text Section */
-.bottom-right-text {
+  
+    .portfolio-row-center {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .portfolio-row-center .portfolio-item {
+      flex: 0 1 100%;
+    }
+  }
+  
+  /* Footer */
+  .bottom-right-text {
     position: absolute;
     right: 20px;
-    line-height: 10px;
     bottom: 0px;
-    font-family: "AUTHENTIC";
     font-size: 8px;
-    color: black;
-}
+    color: white;
+    line-height: 10px;
+  }
+
+
+  .video-thumbnail {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    background: #111;
+    transition: transform 0.4s ease;
+  }
+  
+  .video-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  
+
+  .video-thumbnail iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    aspect-ratio: 16 / 9;
+  }
+  
