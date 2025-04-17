@@ -29,7 +29,7 @@
   }
   
   .small-text {
-    font-size: 0.5em;
+    font-size: 0.23em;
     margin-left: 10px;
     color: white;
   }
@@ -68,6 +68,21 @@
     color: #c0a4f4;
   }
   
+  .tooltip a {
+    color: #c0a4f4; /* soft purple, change as desired */
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+
+  .tooltip strong {
+    color: #cfa9ff;
+    font-weight: bold;
+  }
+  
+  .tooltip a:hover {
+    color: #ffffff; /* or a lighter hover color */
+  }
+
   /* Tooltip */
   .tooltip {
     display: none;
@@ -75,14 +90,14 @@
     top: 30px;
     left: 50%;
     transform: translateX(-50%);
-    background: #2a2a2a; /* darker gray for tooltip background */
+    background: #000000; /* darker gray for tooltip background */
     color: white;
     padding: 15px;
-    width: 400px;
+    width: 600px;
     border-radius: 5px;
     font-size: 14px;
-    box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
-    max-height: 150px;
+    box-shadow: 0 0 0px rgba(255, 255, 255, 0.2);
+    max-height: 500px;
     overflow-y: auto;
     z-index: 10;
   }
