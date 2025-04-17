@@ -109,8 +109,32 @@
     max-height: 500px;
     overflow-y: auto;
     z-index: 10;
-  }
+
+        /* Desktop default */
+        width: 600px;
+        max-width: 600px;
+        box-shadow: 0 0 0px rgba(255, 255, 255, 0.2);
+      }
+      
+      /* ✅ Mobile override */
+      @media (max-width: 600px) {
+        .tooltip {
+          width: 90vw;
+          max-width: 90vw;
+          left: 5vw;
+          transform: none;
+          top: 45px;
+        }
+      }
   
+      @media (max-width: 600px) {
+        .contact-tooltip {
+          left: auto;
+          right: 10px;
+          transform: none;
+        }
+      }
+      
   .contact-tooltip {
     width: 215px; 
   }
@@ -272,5 +296,55 @@
     border: none;
     display: block;
     aspect-ratio: 16 / 9;
+  }
+  
+/* 1. Responsive header layout for mobile */
+@media (max-width: 600px) {
+    .header-container {
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+  
+    .small-text {
+      display: block;
+      margin-left: 0;
+      margin-top: 4px;
+    }
+  }
+  
+  /* 2. Better grid layout on mobile: force single-column */
+  @media (max-width: 1000px) {
+    .portfolio {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  
+    .portfolio-row-center {
+      flex-direction: row;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+  
+    .portfolio-row-center .portfolio-item {
+      flex: 0 1 calc(50% - 20px);
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .portfolio-row-center {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .portfolio-row-center .portfolio-item {
+      flex: 0 1 100%;
+    }
+  
+    .portfolio-item {
+      padding: 12px;
+    }
   }
   
