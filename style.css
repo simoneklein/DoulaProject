@@ -78,10 +78,19 @@
     color: #cfa9ff;
     font-weight: bold;
   }
+
+
+
+  .tooltip a {
+    color: white;
+    text-decoration: underline; /* optional */
+  }
   
   .tooltip a:hover {
-    color: #ffffff; /* or a lighter hover color */
+    color: #cfa9ff; /* or whatever hover color you like */
   }
+
+
 
   /* Tooltip */
   .tooltip {
