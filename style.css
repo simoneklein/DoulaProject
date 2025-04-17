@@ -90,7 +90,24 @@
     color: #cfa9ff; /* or whatever hover color you like */
   }
 
-
+  .roots-tooltip {
+    width: 600px;
+    max-width: 600px;
+  }
+  
+  /* Mobile override */
+  @media (max-width: 600px) {
+    .roots-tooltip {
+      left: 5vw !important;
+      right: auto !important;
+      transform: none !important;
+      width: auto;
+      max-width: 90vw;
+      word-wrap: break-word;
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
+  }
 
   /* Tooltip */
   .tooltip {
@@ -116,27 +133,23 @@
         box-shadow: 0 0 0px rgba(255, 255, 255, 0.2);
       }
       
-      /* ✅ Mobile override */
+
+      /* ✅ MOBILE OVERRIDE */
       @media (max-width: 600px) {
-        .tooltip {
+        .contact-tooltip {
           width: 90vw;
           max-width: 90vw;
           left: 5vw;
+          right: auto;
           transform: none;
           top: 45px;
         }
       }
-  
-      @media (max-width: 600px) {
-        .contact-tooltip {
-          left: auto;
-          right: 10px;
-          transform: none;
-        }
-      }
-      
+
+
   .contact-tooltip {
     width: 215px; 
+    left: 100%;
   }
 
   .nav-item:hover .tooltip {
