@@ -49,7 +49,13 @@
   .nav-list {
     list-style: none;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 0;
+    margin: 0;
   }
+
+
   
   .nav-item {
     position: relative;
@@ -95,37 +101,38 @@
     max-width: 600px;
   }
   
-  /* Mobile override */
+
   @media (max-width: 600px) {
     .roots-tooltip {
+      width: 90vw !important;
+      max-width: 90vw !important;
       left: 5vw !important;
       right: auto !important;
       transform: none !important;
-      width: auto;
-      max-width: 90vw;
+      top: 45px;
       word-wrap: break-word;
-      white-space: normal;
       overflow-wrap: break-word;
     }
   }
 
+
   /* Tooltip */
   .tooltip {
-    display: none;
-    position: absolute;
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #000000; /* darker gray for tooltip background */
-    color: white;
-    padding: 15px;
-    width: 600px;
-    border-radius: 5px;
-    font-size: 14px;
-    box-shadow: 0 0 0px rgba(255, 255, 255, 0.2);
-    max-height: 500px;
-    overflow-y: auto;
-    z-index: 10;
+        display: none;
+        position: absolute;
+        top: 30px;
+        left: 0;
+        background: #000000;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 14px;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        max-height: 500px;
+        overflow-y: auto;
+        z-index: 10;
+        width: 600px;
+        max-width: 600px;
 
         /* Desktop default */
         width: 600px;
@@ -149,14 +156,20 @@
 
   .contact-tooltip {
     width: 215px; 
-    left: 100%;
   }
+
 
   .nav-item:hover .tooltip {
     display: block;
-    left: 0;
-    transform: translateX(0);
   }
+  
+  @media (max-width: 600px) {
+    .nav-item {
+      margin: 10px;
+    }
+  }
+
+
   
   /* Grid */
   .portfolio {
