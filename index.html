@@ -9,7 +9,7 @@
 
 <body>
   <div class="header-container">
-    <h1>Told In Care<span class="small-text">New York City</span></h1>
+    <h1>Told in Care<span class="small-text">New York City</span></h1>
     <h2 class="right-title">Oral Histories of Birth Work On/Off Institutional Times</h2>
   </div>
 
@@ -31,19 +31,21 @@
       <li class="nav-item">
         <a href="#" class="nav-link">Roots</a>
         <div class="tooltip">
-            To continue... <br><br>
-            witness and learn more about Granny Midwives from 
-            <a href="https://blackmidwiferycollective.org/advocacy-birth-justice/history-of-midwifery/" target="_blank">The Black Midwifery Collective</a>,<br>
-            read <a href="https://time.com/6727306/black-midwife-shortage-history/" target="_blank">“The History That Explains Today’s Shortage of Black Midwives”</a> in <em>Time</em> Magazine by Anika Nayak,<br>
-            and <a href="https://www.aclu.org/news/racial-justice/the-racist-history-of-abortion-and-midwifery-bans?utm_source=chatgpt.com" target="_blank">The Racist History of Abortion and Midwifery Bans</a> by Michelle Goodwin, published by the ACLU.<br><br>
+           <strong>To Continue...</strong> <br><br>
+            learn more about <strong>Granny Midwives</strong> from 
+            <a href="https://blackmidwiferycollective.org/advocacy-birth-justice/history-of-midwifery/" target="_blank"><strong>The Black Midwifery Collective</strong></a>,<br>
+            read <a href="https://time.com/6727306/black-midwife-shortage-history/" target="_blank"><strong>“The History That Explains Today’s Shortage of Black Midwives”</strong></a> in <em>Time</em> Magazine by Anika Nayak,<br>
+            and <a href="https://www.aclu.org/news/racial-justice/the-racist-history-of-abortion-and-midwifery-bans?utm_source=chatgpt.com" target="_blank"><strong>The Racist History of Abortion and Midwifery Bans</strong></a> by Michelle Goodwin, published by the ACLU.<br><br>
         
-            visit the <a href="https://healthlaw.org/doulamedicaidproject/" target="_blank">Doula Medicaid Project</a> to find out more about current state and federal efforts for expanding access to doula care, research, and publications on Medicaid coverage for doula care.<br><br>
+            visit the <a href="https://healthlaw.org/doulamedicaidproject/" target="_blank"><strong>Doula Medicaid Project</strong></a> to find out more about current state and federal efforts for expanding access to doula care, research, and publications on Medicaid coverage for doula care.<br><br>
         
-            read about <a href="https://www.aaihs.org/black-subjectivity-and-the-origins-of-american-gynecology/" target="_blank">“Black Subjectivity and the Origins of American Gynecology”</a> in the African American Intellectual History Society (AAIHS).<br><br>
+            read about <a href="https://www.aaihs.org/black-subjectivity-and-the-origins-of-american-gynecology/" target="_blank"><strong>“Black Subjectivity and the Origins of American Gynecology”</strong></a> in the African American Intellectual History Society (AAIHS).<br><br>
         
-            access the <a href="https://fragrant-tiger-12665.myflodesk.com/urxjfrpymq" target="_blank">Black Maternal Health Resource Guide</a> from the Love Delivered Partnership between the Mama Glow Foundation and Carol’s Daughter.<br><br>
+            access the <a href="https://fragrant-tiger-12665.myflodesk.com/urxjfrpymq" target="_blank"><strong>Black Maternal Health Resource Guide</strong></a> from the Love Delivered Partnership between the Mama Glow Foundation and Carol’s Daughter.<br><br>
         
-            check out <a href="https://mamaglowfoundation.org" target="_blank">Mama Glow Foundation</a> and <a href="https://mamaglow.com" target="_blank">Mama Glow</a>.
+            check out <a href="https://mamaglowfoundation.org" target="_blank"><strong>Mama Glow Foundation</strong></a> and <a href="https://mamaglow.com" target="_blank"></strong>Mama Glow</strong></a>. <br></br>
+
+            explore <a href="https://queerdoulanetwork.com/" target="_blank"><strong>the Queer Doula Network</strong></a>
           </div>
       </li>
       <li class="nav-item">
@@ -147,20 +149,19 @@
 
  
 
-  <!-- YouTube & Scroll Effects -->
   <script>
     var tag = document.createElement('script');
     tag.src = "https://www.youtube.com/iframe_api";
     document.body.appendChild(tag);
-
+  
     let players = [];
-
+    let pauseTimers = new Map();
+    let lastTimes = new Map();
+  
     function onYouTubeIframeAPIReady() {
       const videoDivs = document.querySelectorAll('.youtube-player');
-
       videoDivs.forEach((div, index) => {
         const videoId = div.dataset.videoId;
-
         players[index] = new YT.Player(div, {
           height: '315',
           width: '560',
@@ -185,9 +186,70 @@
           }
         });
       });
+  
+      document.querySelectorAll('.video-thumbnail').forEach((thumb, index) => {
+        const videoId = thumb.getAttribute('data-video-id');
+  
+        thumb.addEventListener('click', function () {
+          const lastTime = lastTimes.get(videoId) || 0;
+  
+          const iframe = document.createElement('iframe');
+          iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1&start=${Math.floor(lastTime)}`);
+          iframe.setAttribute('frameborder', '0');
+          iframe.setAttribute('allowfullscreen', '');
+          iframe.setAttribute('allow', 'autoplay; encrypted-media');
+          iframe.setAttribute('id', `yt-${videoId}`);
+          iframe.style.width = "100%";
+          iframe.style.height = "100%";
+  
+          thumb.innerHTML = '';
+          thumb.appendChild(iframe);
+          thumb.classList.add('playing');
+  
+          players[`thumb-${index}`] = new YT.Player(`yt-${videoId}`, {
+            events: {
+              'onStateChange': function (event) {
+                const player = event.target;
+  
+                if (event.data === YT.PlayerState.PAUSED) {
+                  player.getCurrentTime && player.getCurrentTime().then(time => {
+                    lastTimes.set(videoId, time);
+                  });
+  
+                  const timeoutId = setTimeout(() => {
+                    thumb.innerHTML = `
+                      <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" alt="Video thumbnail" />
+                    `;
+                    thumb.setAttribute("data-video-id", videoId);
+                    thumb.classList.remove("playing");
+                    pauseTimers.delete(videoId);
+                  }, 900000); // 15 minutes
+  
+                  pauseTimers.set(videoId, timeoutId);
+                }
+  
+                if (event.data === YT.PlayerState.PLAYING) {
+                  clearTimeout(pauseTimers.get(videoId));
+                }
+  
+                if (event.data === YT.PlayerState.ENDED) {
+                  thumb.innerHTML = `
+                    <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" alt="Video thumbnail" />
+                  `;
+                  thumb.setAttribute("data-video-id", videoId);
+                  thumb.classList.remove("playing");
+                  pauseTimers.delete(videoId);
+                }
+              }
+            }
+          });
+        });
+      });
     }
-
-    // Fade-in on scroll
+  </script>
+  
+  <!-- Scroll fade-in -->
+  <script>
     const items = document.querySelectorAll('.portfolio-item');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -196,26 +258,9 @@
         }
       });
     }, { threshold: 0.1 });
-
+  
     items.forEach(item => observer.observe(item));
   </script>
-
-
-<script>
-    document.querySelectorAll('.video-thumbnail').forEach(thumb => {
-      thumb.addEventListener('click', function () {
-        const videoId = this.getAttribute('data-video-id');
-        const iframe = document.createElement('iframe');
-        iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`);
-        iframe.setAttribute('frameborder', '0');
-        iframe.setAttribute('allowfullscreen', '');
-        iframe.setAttribute('allow', 'autoplay; encrypted-media');
-        this.innerHTML = '';
-        this.appendChild(iframe);
-      });
-    });
-  </script>
-
 
 </body>
 </html>
