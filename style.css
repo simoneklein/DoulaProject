@@ -102,6 +102,10 @@
     z-index: 10;
   }
   
+  .contact-tooltip {
+    width: 215px; 
+  }
+
   .nav-item:hover .tooltip {
     display: block;
     left: 0;
@@ -230,15 +234,7 @@
     }
   }
   
-  /* Footer */
-  .bottom-right-text {
-    position: absolute;
-    right: 20px;
-    bottom: 0px;
-    font-size: 8px;
-    color: white;
-    line-height: 10px;
-  }
+ 
 
 
   .video-thumbnail {
