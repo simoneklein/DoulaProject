@@ -47,12 +47,12 @@
        
             read about <a href="https://www.aaihs.org/black-subjectivity-and-the-origins-of-american-gynecology/" target="_blank"><strong>“Black Subjectivity and the Origins of American Gynecology”</strong></a> in the African American Intellectual History Society (AAIHS).<br><br>
        
-            access the <a href="https://fragrant-tiger-12665.myflodesk.com/urxjfrpymq" target="_blank"><strong>Black Maternal Health Resource Guide</strong></a> from the Love Delivered Partnership between the Mama Glow Foundation and Carol’s Daughter for a collection of varied media resources on the Black Maternal Health Crisis and Medical Racism. .<br><br>
+            access the <a href="https://fragrant-tiger-12665.myflodesk.com/urxjfrpymq" target="_blank"><strong>Black Maternal Health Resource Guide</strong></a> from the Love Delivered Partnership between the Mama Glow Foundation and Carol’s Daughter for a collection of varied media resources on the Black Maternal Health Crisis and Medical Racism.<br><br>
        
             check out <a href="https://mamaglowfoundation.org" target="_blank"><strong>Mama Glow Foundation</strong></a> and <a href="https://mamaglow.com" target="_blank"><strong>Mama Glow</strong></a>. <br></br>
  
  
-            explore <a href="https://queerdoulanetwork.com/" target="_blank"><strong>the Queer Doula Network</strong></a>
+            explore <a href="https://queerdoulanetwork.com/" target="_blank"><strong>the Queer Doula Network</strong>.</a>
           </div>
  
       </li>
@@ -283,6 +283,26 @@
       }
     });
   </script>
+
+<script>
+  document.addEventListener('click', function (event) {
+    // Loop through all tooltips
+    document.querySelectorAll('.tooltip').forEach(tooltip => {
+      const navItem = tooltip.closest('.nav-item');
+      const isClickInside = navItem && navItem.contains(event.target);
+
+      // If click is outside the nav item, hide the tooltip
+      if (!isClickInside) {
+        tooltip.style.display = 'none';
+      }
+    });
+  });
+</script>
+
+
+
+
+
 </body>
 </html>
 
