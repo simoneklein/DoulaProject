@@ -1,3 +1,5 @@
+
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -119,6 +121,7 @@
   /* Tooltip */
   .tooltip {
         display: none;
+        pointer-events: auto; /* allow interaction */
         position: absolute;
         top: 30px;
         left: 0;
@@ -158,10 +161,6 @@
     width: 215px; 
   }
 
-
-  .nav-item:hover .tooltip {
-    display: block;
-  }
   
   @media (max-width: 600px) {
     .nav-item {
