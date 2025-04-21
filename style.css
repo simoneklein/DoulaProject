@@ -292,7 +292,6 @@
     }
   }
   
- 
 
 
   .video-thumbnail {
@@ -304,6 +303,7 @@
     cursor: pointer;
     background: #111;
     transition: transform 0.4s ease;
+    min-height: 200px; /* ✅ prevents collapse */
   }
   
   .video-thumbnail img {
@@ -312,16 +312,18 @@
     object-fit: cover;
     display: block;
   }
-  
-  
 
+  
   .video-thumbnail iframe {
-    width: 100%;
-    height: 100%;
+    width: 100% !important;
+    height: 100% !important;
     border: none;
     display: block;
     aspect-ratio: 16 / 9;
-  }
+    opacity: 1 !important; /* ✅ ensures visibility */
+    visibility: visible;
+    }
+
   
 /* 1. Responsive header layout for mobile */
 @media (max-width: 600px) {
