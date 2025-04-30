@@ -127,8 +127,8 @@
 
   @media (max-width: 600px) {
     .tooltip {
-      width: 90vw !important;
-      max-width: 90vw !important;
+      width: 60vw !important ;
+      max-width: 60vw !important;
       left: 5vw !important;
       right: auto !important;
       transform: none !important;
@@ -188,21 +188,23 @@
 
 
       /* ✅ MOBILE OVERRIDE */
-      @media (max-width: 600px) {
-        .contact-tooltip {
-          width: 70vw !important;
-          max-width: 70vw!important;
-          left: 5vw !important;
-          right: auto;
-          transform: none;
-          top: 45px;
-        }
-      }
-
+     
 
   .contact-tooltip {
     width: 230px; 
   }
+
+  @media (max-width: 600px) {
+    .contact-tooltip {
+      width: 40vw !important;
+      max-width: 40vw!important;
+      left: 5vw !important;
+      right: auto;
+      transform: none;
+      top: 45px;
+    }
+  }
+
 
   
   @media (max-width: 600px) {
