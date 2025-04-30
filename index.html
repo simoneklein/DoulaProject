@@ -24,11 +24,11 @@
   </div>
 
   <nav>
-
     <ul class="nav-list">
       <li class="nav-item">
         <a class="nav-link" role="button" tabindex="0">About</a>
         <div class="tooltip">
+          <button class="tooltip-close" aria-label="Close tooltip">x</button>
           
 
             <strong>Told in Care </strong>began as a way to learn about how the <a href="https://www.nyc.gov/site/doh/health/health-topics/citywide-doula-initiative.page" target="_blank">2021 NYC Citywide Doula Initiative</a> (referenced in the recordings as “CDI”) – a policy covering doula care under Medicaid in select NYC boroughs – was impacting BIPOC doulas and their communities. As of January 2025, “a total of 15 states plus Washington D.C. have enacted access to doula care for Medicaid enrollees, up from five states in early 2022” (Doula Medicaid Project). These oral histories are windows into Doula modes of resistance and connection, and the role that birth has played in their own lives. To emphasize what is expressed repeatedly in these recordings: doula work resists pathology, while centering ancestral knowledge, cultivating well-being beyond survival, and uplifting individual and collective embodied agency. Doulas are highly specialized folks who transform the lives of the individuals they support as they interface with the Medical Industrial Complex. To sustain this deep and taxing work, birth-workers build alternative and localized networks. Through those networks, they find belonging, transformation, and healing community. <strong>Told in Care</strong> is interested in oral history as a slower, sensorial, relational mode of engaging with past, present, and future. This is a living archive. It aims to be part of organizing people to gather resources around birth workers, build coverage initiatives that truly pour into doulas, and commit to structural change beyond the limits of their work in the medical system.<br><br>
@@ -40,12 +40,13 @@
  
   <strong>Note on language adapted from Doula Medicaid Project: </strong> The term “doula” comes from the ancient Greek word for “female servant” or “female slave.” In the current day, this word has evolved to represent a professional who provides non-clinical physical, emotional, spiritual, and informational support across the full spectrum of reproductive health. With intentional reflection, <strong>Told in Care</strong> uses this term because of its continued presence in the Mama Glow doula community, alongside “birth worker.” <br><br>
  
-  </div>
-  </li>
+        </div>
+      </li>
  
       <li class="nav-item">
-    <a class="nav-link" role="button" tabindex="0">Roots</a>
-    <div class="tooltip roots-tooltip">
+        <a class="nav-link" role="button" tabindex="0">Roots</a>
+        <div class="tooltip roots-tooltip">
+          <button class="tooltip-close" aria-label="Close tooltip">x</button>
       
            <strong>RECOMMENDED</strong> <br><br>
             learn more about <strong>Granny Midwives</strong> from 
@@ -112,11 +113,11 @@
          
          
           </div>
- 
       </li>
       <li class="nav-item">
         <a class="nav-link" role="button" tabindex="0">Contact</a>
         <div class="tooltip contact-tooltip">
+          <button class="tooltip-close" aria-label="Close tooltip">x</button>
           
           doulaprojectnyc@gmail.com
         </div>
@@ -326,60 +327,44 @@
     items.forEach(item => observer.observe(item));
   </script>
   
-  <!-- Tooltip click toggle + preserve hover -->
   <script>
-    let tooltipClickActive = false;
+    document.addEventListener('DOMContentLoaded', function () {
+      const navLinks = document.querySelectorAll('.nav-link');
+      const tooltips = document.querySelectorAll('.tooltip');
   
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', function (event) {
-        event.preventDefault();
-        const tooltip = this.nextElementSibling;
-        const isOpen = tooltip.dataset.open === "true";
+      // When a nav link is clicked
+      navLinks.forEach(link => {
+        link.addEventListener('click', event => {
+          event.preventDefault();
+          const tooltip = link.nextElementSibling;
   
-        // Close all tooltips
-        document.querySelectorAll('.tooltip').forEach(t => {
-          t.style.display = 'none';
-          t.dataset.open = "false";
+          const isVisible = tooltip.classList.contains('visible');
+  
+          // Close all tooltips
+          tooltips.forEach(t => t.classList.remove('visible'));
+  
+          // Toggle current one
+          if (!isVisible) {
+            tooltip.classList.add('visible');
+          }
         });
-  
-        if (!isOpen) {
-          tooltip.style.display = 'block';
-          tooltip.dataset.open = "true";
-          tooltipClickActive = true;
-        } else {
-          tooltip.style.display = 'none';
-          tooltip.dataset.open = "false";
-          tooltipClickActive = false;
-        }
-      });
-    });
-  
-    document.addEventListener('click', function (event) {
-      const isClickOnTooltip = event.target.closest('.tooltip');
-      const isClickOnNavItem = event.target.closest('.nav-item');
-      if (!isClickOnTooltip && !isClickOnNavItem) {
-        document.querySelectorAll('.tooltip').forEach(tooltip => {
-          tooltip.style.display = 'none';
-          tooltip.dataset.open = "false";
-        });
-        tooltipClickActive = false;
-      }
-    });
-  
-    // Tooltip hover fallback if not click-open
-    document.querySelectorAll('.nav-item').forEach(item => {
-      const link = item.querySelector('.nav-link');
-      const tooltip = item.querySelector('.tooltip');
-  
-      item.addEventListener('mouseenter', () => {
-        if (!tooltipClickActive) {
-          tooltip.style.display = 'block';
-        }
       });
   
-      item.addEventListener('mouseleave', () => {
-        if (!tooltipClickActive) {
-          tooltip.style.display = 'none';
+      // When "X" is clicked
+      document.querySelectorAll('.tooltip-close').forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.stopPropagation();
+          const tooltip = btn.closest('.tooltip');
+          tooltip.classList.remove('visible');
+        });
+      });
+  
+      // Clicking anywhere else closes tooltips
+      document.addEventListener('click', function (event) {
+        const isTooltip = event.target.closest('.tooltip');
+        const isNavLink = event.target.closest('.nav-link');
+        if (!isTooltip && !isNavLink) {
+          tooltips.forEach(t => t.classList.remove('visible'));
         }
       });
     });
