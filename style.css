@@ -190,8 +190,8 @@
       /* ✅ MOBILE OVERRIDE */
       @media (max-width: 600px) {
         .contact-tooltip {
-          width: 90vw;
-          max-width: 90vw;
+          width: 70vw;
+          max-width: 70vw;
           left: 5vw;
           right: auto;
           transform: none;
