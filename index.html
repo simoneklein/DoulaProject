@@ -218,104 +218,108 @@
         <p>Doula. filmed in the Bronx.</p>
       </a>
   </div>
+
   <script>
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    document.body.appendChild(tag);
-  
-    let players = [];
-    let pauseTimers = new Map();
-    let lastTimes = new Map();
-  
-    function onYouTubeIframeAPIReady() {
-      const videoDivs = document.querySelectorAll('.youtube-player');
-      videoDivs.forEach((div, index) => {
-        const videoId = div.dataset.videoId;
-        players[index] = new YT.Player(div, {
-          height: '315',
-          width: '560',
-          videoId: videoId,
-          playerVars: {
-            rel: 0,
-            modestbranding: 1,
-            showinfo: 0,
-            autoplay: 0,
-            fs: 1,
-            playsinline: 1
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.body.appendChild(tag);
+
+  let players = [];
+  let pauseTimers = new Map();
+  let lastTimes = new Map();
+
+  function onYouTubeIframeAPIReady() {
+    const videoDivs = document.querySelectorAll('.youtube-player');
+    videoDivs.forEach((div, index) => {
+      const videoId = div.dataset.videoId;
+      players[index] = new YT.Player(div, {
+        height: '315',
+        width: '560',
+        videoId: videoId,
+        playerVars: {
+          rel: 0,
+          modestbranding: 1,
+          showinfo: 0,
+          autoplay: 0,
+          fs: 1,
+          playsinline: 1
+        },
+        events: {
+          'onReady': (event) => {
+            div.querySelector('iframe')?.classList.add('loaded');
           },
-          events: {
-            'onReady': (event) => {
-              div.querySelector('iframe')?.classList.add('loaded');
-            },
-            'onStateChange': (event) => {
-              if (event.data === YT.PlayerState.PLAYING) {
-                event.target.setPlaybackQuality('hd2160');
-              }
+          'onStateChange': (event) => {
+            if (event.data === YT.PlayerState.PLAYING) {
+              event.target.setPlaybackQuality('hd2160');
             }
           }
-        });
+        }
       });
-  
-      document.querySelectorAll('.video-thumbnail').forEach((thumb, index) => {
-        const videoId = thumb.getAttribute('data-video-id');
-  
-        thumb.addEventListener('click', function () {
-          const lastTime = lastTimes.get(videoId) || 0;
-  
-          const iframe = document.createElement('iframe');
-          iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1&start=${Math.floor(lastTime)}`);
-          iframe.setAttribute('frameborder', '0');
-          iframe.setAttribute('allowfullscreen', '');
-          iframe.setAttribute('allow', 'autoplay; encrypted-media');
-          iframe.setAttribute('id', `yt-${videoId}`);
-          iframe.style.width = "100%";
-          iframe.style.height = "100%";
-  
-          thumb.innerHTML = '';
-          thumb.appendChild(iframe);
-          thumb.classList.add('playing');
-  
-          players[`thumb-${index}`] = new YT.Player(`yt-${videoId}`, {
-            events: {
-              'onStateChange': function (event) {
-                const player = event.target;
-  
-                if (event.data === YT.PlayerState.PAUSED) {
-                  player.getCurrentTime && player.getCurrentTime().then(time => {
-                    lastTimes.set(videoId, time);
-                  });
-  
-                  const timeoutId = setTimeout(() => {
-                    thumb.innerHTML = `
-                      <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" alt="Video thumbnail" />
-                    `;
-                    thumb.setAttribute("data-video-id", videoId);
-                    thumb.classList.remove("playing");
-                    pauseTimers.delete(videoId);
-                  }, 300000); // 5 minutes
-  
-                  pauseTimers.set(videoId, timeoutId);
-                }
-  
-                if (event.data === YT.PlayerState.PLAYING) {
-                  clearTimeout(pauseTimers.get(videoId));
-                }
-  
-                if (event.data === YT.PlayerState.ENDED) {
+    });
+
+    document.querySelectorAll('.video-thumbnail').forEach((thumb, index) => {
+      const videoId = thumb.getAttribute('data-video-id');
+
+      thumb.addEventListener('click', function (e) {
+        e.preventDefault(); // ✅ Prevents page from scrolling to top
+        e.stopPropagation();
+
+        const lastTime = lastTimes.get(videoId) || 0;
+
+        const iframe = document.createElement('iframe');
+        iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1&start=${Math.floor(lastTime)}`);
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.setAttribute('allow', 'autoplay; encrypted-media');
+        iframe.setAttribute('id', `yt-${videoId}`);
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+
+        thumb.innerHTML = '';
+        thumb.appendChild(iframe);
+        thumb.classList.add('playing');
+
+        players[`thumb-${index}`] = new YT.Player(`yt-${videoId}`, {
+          events: {
+            'onStateChange': function (event) {
+              const player = event.target;
+
+              if (event.data === YT.PlayerState.PAUSED) {
+                player.getCurrentTime && player.getCurrentTime().then(time => {
+                  lastTimes.set(videoId, time);
+                });
+
+                const timeoutId = setTimeout(() => {
                   thumb.innerHTML = `
                     <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" alt="Video thumbnail" />
                   `;
                   thumb.setAttribute("data-video-id", videoId);
                   thumb.classList.remove("playing");
                   pauseTimers.delete(videoId);
-                }
+                }, 300000); // 5 minutes
+
+                pauseTimers.set(videoId, timeoutId);
+              }
+
+              if (event.data === YT.PlayerState.PLAYING) {
+                clearTimeout(pauseTimers.get(videoId));
+              }
+
+              if (event.data === YT.PlayerState.ENDED) {
+                thumb.innerHTML = `
+                  <img src="https://img.youtube.com/vi/${videoId}/maxresdefault.jpg" alt="Video thumbnail" />
+                `;
+                thumb.setAttribute("data-video-id", videoId);
+                thumb.classList.remove("playing");
+                pauseTimers.delete(videoId);
               }
             }
-          });
+          }
         });
       });
-    }
-  </script>
+    });
+  }
+</script>
   
   <!-- Scroll fade-in -->
   <script>
